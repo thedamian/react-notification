@@ -1,46 +1,39 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Simple React Notification Example with ntfy.sh
 
-## Available Scripts
+In this example we are creating a super simple notification example using the magic of ntfy.sh 
 
-In the project directory, you can run:
+## Why are we using ntfy.sh?
+The truth is that it costs us almost nothing to host a function in a cloud provider, then keep track of each customer that comes and if they need apple, or google, or firefox or other notification services and send them the right notification....<BR>
+Or<BR>
+we use nfty.sh.<BR>
+This is ONLY a solution if we are online and get a notification about an event that happened on the server. So a pizza or coffee place could use it easily on a page where the customer wants to get notified not only on the page (something websockets could do) but also when on their device's notification area.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How does this magic work?
+1) We connect to the websocket nfty provides. (no backend for us no siree)
+2) when we hear a notification (sent by the code below), we use the browser notification code and tell the notification what to do once it is clicked.
+3) We enjoy life!
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Example of how to call this by hitting and endpoint 
+Simply run this on your Mac, Linux or WSL terminal (or change it for powershell)
+```
+curl \
+ -H "Title: Title of Notification" \
+ -H "Priority: urgent" \
+ -H "Tags: warning,skull" \
+ -d "main message in notification" \
+https://ntfy.sh/DamiansNotificationExample
+```
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## The strucker of the message coming from nfty.sh is
+```
+id: string
+time: string
+event: string
+topic:string
+title: string
+message: string
+tags: string
+```

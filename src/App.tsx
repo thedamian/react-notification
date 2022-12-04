@@ -2,15 +2,6 @@ import React, { useEffect,useState } from 'react';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import './App.css';
 
-/* 
-Example of how to call this by hitting and endpoint 
-  curl \
-  -H "Title: Title of Notification" \
-  -H "Priority: urgent" \
-  -H "Tags: warning,skull" \
-  -d "main message in notification" \
-  https://ntfy.sh/DamianMontero
-*/
 
 interface WebSocketMessage {
   id: string
@@ -36,7 +27,7 @@ function App() {
 
     checkPermissiong();
 
-      const webSocket = new WebSocket('wss://ntfy.sh/DamianMontero/ws');
+      const webSocket = new WebSocket('wss://ntfy.sh/DamiansNotificationExample/ws');
       webSocket.onmessage = (e) => {
         //  Eample of e.data = {"id":"9y6Kxu34FQHV","time":1669941518,"event":"message","topic":"DamianMontero","title":"title of dama","message":"message","tags":["warning"]}
         const {id,time,event,topic,title,message,tags} = JSON.parse(e.data) as WebSocketMessage
@@ -47,7 +38,9 @@ function App() {
               icon: 'https://damianmontero.com/damian.jpg' 
             });
           greeting.addEventListener('click', function(){
-            // what to do when they click on the message. You could do things here, or simply open a new page.
+            // what to do when they click on the message. 
+            // Normally what you'd want to do is navigate to a route that makes sense for the notification.
+            //You have access to the FULL message here so you could redirect them to anything your message send
             setNotification("OMG! You totally clicked that notification. \nGood job!")
           });
           // For here 
